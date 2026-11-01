@@ -7,9 +7,9 @@
   --icon:#2E5A7A;       /* muted navy for pictograms and link hover */
   --figure:#B4520A;     /* burnt orange, only on headline numbers */
   --field:#FAFAFA;
-  --script:"La Belle Aurore", "Snell Roundhand", cursive;
-  --serif:"Lora", "Noto Serif TC", Georgia, serif;
-  --sans:"Open Sans", "Noto Sans TC", "Helvetica Neue", Arial, sans-serif;
+  --script:var(--font-script), "Snell Roundhand", cursive;
+  --serif:var(--font-lora), var(--font-noto-serif-tc), Georgia, serif;
+  --sans:var(--font-open-sans), var(--font-noto-sans-tc), "Helvetica Neue", Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#161718; --text:#DADADA; --text-2:#9A9A9A; --rule:#2E3032; --icon:#86AFCC; --figure:#E8914A; --field:#1D1F21;

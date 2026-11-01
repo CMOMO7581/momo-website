@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "npx serve out"
+    "build": "npm run fonts && next build",
+    "start": "npx serve out",
+    "fonts": "node scripts/subset-cjk-fonts.mjs"
   },
   "keywords": [],
   "author": "",

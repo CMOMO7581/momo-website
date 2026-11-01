@@ -78,8 +78,12 @@ export function Portfolio({ lang }: { lang: Lang }) {
                 <p className="facts num" {...h("about.facts")} />
               </div>
               <figure>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="photo" id="photo" src="/headshot.jpg" width={480} height={600} alt={t["photo.alt"]} />
+                {/* A smaller AVIF for browsers that support it; headshot.jpg is the fallback and the share image. */}
+                <picture>
+                  <source srcSet="/headshot.avif" type="image/avif" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="photo" id="photo" src="/headshot.jpg" width={480} height={600} alt={t["photo.alt"]} />
+                </picture>
                 <figcaption>Cheng-Mou (Momo) Chen <span lang="zh-Hant">陳政謀</span></figcaption>
               </figure>
             </div>
