@@ -48,7 +48,7 @@ The build first runs `npm run fonts`, which downloads Noto Sans TC and Noto Seri
 
 ## Contact form (Formspree)
 
-1. Create a free account at https://formspree.io using **cc79336@eid.utexas.edu**, and confirm that address from the email Formspree sends.
+1. Create a free account at https://formspree.io using **cmomo7581@gmail.com** (or set it as the form's notification email), and confirm that address from the email Formspree sends.
 2. Create a new form. Its endpoint looks like `https://formspree.io/f/abcdwxyz`; the last part (`abcdwxyz`) is the form ID.
 3. Put it in `content/site.json` as `formspreeId`, commit and push.
 4. Send a test message from the live site. The first submission may ask you to confirm the form in your inbox.

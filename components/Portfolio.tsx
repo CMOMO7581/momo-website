@@ -8,7 +8,7 @@ import { CopyButton } from "./CopyButton";
 import { LangToggle } from "./LangToggle";
 import { ThemeToggle } from "./ThemeToggle";
 
-const EMAIL = "cc79336@eid.utexas.edu";
+const EMAIL = "cmomo7581@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/momochen0517";
 
 type LinkKey = keyof typeof links;
