@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import links from "@/content/links.json";
 import { getCopy, type Key, type Lang } from "@/lib/content";
 import { ChartBg } from "./ChartBg";
 import { ContactForm } from "./ContactForm";
@@ -9,6 +10,8 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const EMAIL = "cc79336@eid.utexas.edu";
 const LINKEDIN = "https://www.linkedin.com/in/momochen0517";
+
+type LinkKey = keyof typeof links;
 
 const RESUMES = { en: "/resume/Momo-Chen-Resume-EN.pdf", zh: "/resume/Momo-Chen-Resume-ZH.pdf" };
 
@@ -29,6 +32,14 @@ export function Portfolio({ lang }: { lang: Lang }) {
     resumeReady(RESUMES[which])
       ? <a className="btn" href={RESUMES[which]} download {...h("r.dl")} />
       : <a className="btn" aria-disabled="true">{t["ui.soon"]}</a>;
+  // Links left blank in content/links.json are not rendered, so there are no dead links.
+  const linkRow = (items: [LinkKey, Key][]) => {
+    const shown = items.filter(([k]) => links[k]);
+    if (!shown.length) return null;
+    return <p className="links">{shown.map(([k, label]) => <a key={k} href={links[k]} target="_blank" rel="noopener" {...h(label)} />)}</p>;
+  };
+  const writingTitle = (k: LinkKey, label: Key) =>
+    links[k] ? <h3><a href={links[k]} target="_blank" rel="noopener" {...h(label)} /></h3> : <h3 {...h(label)} />;
 
   return (
     <>
@@ -90,7 +101,7 @@ export function Portfolio({ lang }: { lang: Lang }) {
                   <li {...h("w1.b2")} />
                 </ul>
                 <p className="tools" {...h("w1.tools")} />
-                <p className="links"><a href="#" {...h("l.code")} /><a href="#" {...h("l.report")} /></p>
+                {linkRow([["backtest-code", "l.code"], ["backtest-report", "l.report"]])}
               </div>
             </article>
 
@@ -105,7 +116,7 @@ export function Portfolio({ lang }: { lang: Lang }) {
                   <li {...h("w2.b2")} />
                 </ul>
                 <p className="tools" {...h("w2.tools")} />
-                <p className="links"><a href="#" {...h("l.live")} /><a href="#" {...h("l.code")} /></p>
+                {linkRow([["roadmap-live", "l.live"], ["roadmap-code", "l.code"]])}
               </div>
             </article>
 
@@ -120,7 +131,7 @@ export function Portfolio({ lang }: { lang: Lang }) {
                   <li {...h("w3.b2")} />
                 </ul>
                 <p className="tools" {...h("w3.tools")} />
-                <p className="links"><a href="#" {...h("l.case")} /></p>
+                {linkRow([["agents-writeup", "l.case"]])}
               </div>
             </article>
 
@@ -131,7 +142,7 @@ export function Portfolio({ lang }: { lang: Lang }) {
                 <h3 {...h("w4.t")} />
                 <p {...h("w4.lead")} />
                 <p className="tools" {...h("w4.tools")} />
-                <p className="links"><a href="#" {...h("l.deck")} /></p>
+                {linkRow([["aligna-deck", "l.deck"]])}
               </div>
             </article>
           </section>
@@ -153,9 +164,9 @@ export function Portfolio({ lang }: { lang: Lang }) {
           <section id="writing">
             <h2 {...h("wr.h")} />
             <ol className="entries">
-              <li><div className="when">TULJ</div><div><h3><a href="#" {...h("wr1.t")} /></h3><p className="org" {...h("wr1.o")} /><p {...h("wr1.d")} /></div></li>
-              <li><div className="when">2026</div><div><h3><a href="#" {...h("wr2.t")} /></h3><p className="org" {...h("wr2.o")} /><p {...h("wr2.d")} /></div></li>
-              <li><div className="when">2026</div><div><h3><a href="#" {...h("wr3.t")} /></h3><p className="org" {...h("wr3.o")} /><p {...h("wr3.d")} /></div></li>
+              <li><div className="when">TULJ</div><div>{writingTitle("tulj-article", "wr1.t")}<p className="org" {...h("wr1.o")} /><p {...h("wr1.d")} /></div></li>
+              <li><div className="when">2026</div><div>{writingTitle("interp-edu", "wr2.t")}<p className="org" {...h("wr2.o")} /><p {...h("wr2.d")} /></div></li>
+              <li><div className="when">2026</div><div>{writingTitle("interp-ai", "wr3.t")}<p className="org" {...h("wr3.o")} /><p {...h("wr3.d")} /></div></li>
             </ol>
           </section>
 
