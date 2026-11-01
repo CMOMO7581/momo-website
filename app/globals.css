@@ -1,12 +1,12 @@
 /* Layout: one quiet, left-aligned reading column on white; script signature + serif nav header; thin grey rules between sections; line pictograms beside each project. */
 :root{
-  --bg:#FAF9F6;         /* a faint, slightly cool cream white */
+  --bg:#FFFFFF;
   --text:#383838;
   --text-2:#6E6E6E;
-  --rule:#E3E2DD;
+  --rule:#E3E3E3;
   --icon:#2E5A7A;       /* muted navy for pictograms and link hover */
   --figure:#B4520A;     /* burnt orange, only on headline numbers */
-  --field:#F4F3EF;
+  --field:#FAFAFA;
   --script:var(--font-script), "Snell Roundhand", cursive;
   --serif:var(--font-lora), var(--font-noto-serif-tc), Georgia, serif;
   --sans:var(--font-open-sans), var(--font-noto-sans-tc), "Helvetica Neue", Arial, sans-serif;
@@ -24,6 +24,9 @@
 html{scroll-behavior:smooth;scroll-padding-top:24px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{background:var(--bg);color:var(--text);font:400 15px/1.8 var(--sans);-webkit-font-smoothing:antialiased}
+/* Everything is drawn one step larger than the original design; a smaller step on phones keeps the column roomy. */
+html{zoom:1.15}
+@media (max-width:620px){html{zoom:1.06}}
 html[lang="zh-Hant"] body{font-size:15.5px;line-height:1.9}
 html[lang="zh-Hant"] .kicker{letter-spacing:.12em}
 .page{max-width:760px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-block:48px 40px}
