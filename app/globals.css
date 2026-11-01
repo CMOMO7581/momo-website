@@ -95,6 +95,10 @@ figcaption{font-style:italic;font-size:12px;line-height:1.5;color:var(--text-2);
 html[lang="zh-Hant"] .entries .org, html[lang="zh-Hant"] figcaption, html[lang="zh-Hant"] .tools{font-style:normal}
 .entries p:last-child{margin:0}
 @media (max-width:520px){.entries li{grid-template-columns:minmax(0,1fr);gap:2px}}
+.cert-thumb{display:block;text-decoration:none;margin:2px 0 6px}
+.cert-thumb img{display:block;width:100%;height:auto;aspect-ratio:520/367;border:1px solid var(--rule);border-radius:2px;background:var(--field);transition:border-color .15s}
+.cert-thumb:hover img{border-color:var(--icon)}
+@media (max-width:520px){.cert-thumb{max-width:200px;margin-bottom:4px}}
 
 /* Skills */
 dl.skills{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px 20px;margin:0}

@@ -192,7 +192,20 @@ export function Portfolio({ lang }: { lang: Lang }) {
           <section id="certificates">
             <h2 {...h("cert.h")} />
             <ol className="entries">
-              <li><div className="when" {...h("cert1.w")} /><div>{writingTitle("bmc-cert", "cert1.t")}<p className="org" {...h("cert1.o")} /><p {...h("cert1.d")} /></div></li>
+              <li>
+                <div>
+                  {/* Preview of the certificate; the title link beside it is the accessible way in, so this one is skipped by keyboard and screen readers. */}
+                  <a className="cert-thumb" href={links["bmc-cert"] || undefined} target="_blank" rel="noopener" tabIndex={-1} aria-hidden="true">
+                    <picture>
+                      <source srcSet="/certificates/bmc.avif" type="image/avif" />
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/certificates/bmc.jpg" width={520} height={367} alt="" loading="lazy" />
+                    </picture>
+                  </a>
+                  <div className="when" {...h("cert1.w")} />
+                </div>
+                <div>{writingTitle("bmc-cert", "cert1.t")}<p className="org" {...h("cert1.o")} /><p {...h("cert1.d")} /></div>
+              </li>
             </ol>
           </section>
 
