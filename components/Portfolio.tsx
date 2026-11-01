@@ -170,7 +170,6 @@ export function Portfolio({ lang }: { lang: Lang }) {
             <ol className="entries">
               <li><div className="when">TULJ</div><div>{writingTitle("tulj-article", "wr1.t")}<p className="org" {...h("wr1.o")} /><p {...h("wr1.d")} /></div></li>
               <li><div className="when">2026</div><div>{writingTitle("interp-edu", "wr2.t")}<p className="org" {...h("wr2.o")} /><p {...h("wr2.d")} /></div></li>
-              <li><div className="when">2026</div><div>{writingTitle("interp-ai", "wr3.t")}<p className="org" {...h("wr3.o")} /><p {...h("wr3.d")} /></div></li>
             </ol>
           </section>
 
