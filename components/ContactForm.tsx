@@ -1,32 +1,44 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import type { Copy } from "@/lib/content";
-import { copyText } from "./copyText";
+import site from "@/content/site.json";
 
-const TO = "cc79336@eid.utexas.edu";
+type Status = "idle" | "invalid" | "sending" | "sent" | "failed";
 
 export function ContactForm({ t }: { t: Copy }) {
-  const [error, setError] = useState(false);
-  const [draft, setDraft] = useState<{ text: string; mailto: string } | null>(null);
-  const pre = useRef<HTMLPreElement>(null);
+  const [status, setStatus] = useState<Status>("idle");
 
-  function submit(e: FormEvent<HTMLFormElement>) {
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
     const name = String(data.get("name")).trim(), email = String(data.get("email")).trim(), msg = String(data.get("message")).trim();
-    const select = form.elements.namedItem("topic") as HTMLSelectElement;
-    const topic = select.options[select.selectedIndex].text;
-    if (!name || !msg || !/^\S+@\S+\.\S+$/.test(email)) { setError(true); return; }
-    setError(false);
-    const subject = topic + t["ui.from"] + name;
-    const body = msg + "\n\n" + name + "\n" + email;
-    setDraft({
-      text: "To: " + TO + "\nSubject: " + subject + "\n\n" + body,
-      mailto: "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body),
-    });
+    if (!name || !msg || !/^\S+@\S+\.\S+$/.test(email)) { setStatus("invalid"); return; }
+
+    // Honeypot: people never see this field, so anything in it came from a bot. Pretend it worked.
+    if (String(data.get("_gotcha") ?? "")) { form.reset(); setStatus("sent"); return; }
+
+    setStatus("sending");
+    data.set("_subject", String(data.get("topic")) + t["ui.from"] + name);
+    try {
+      if (!site.formspreeId) throw new Error("formspreeId is not set in content/site.json");
+      const res = await fetch("https://formspree.io/f/" + site.formspreeId, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error("Formspree responded " + res.status);
+      form.reset();
+      setStatus("sent");
+    } catch (err) {
+      console.error(err);
+      setStatus("failed");
+    }
   }
+
+  const note = { idle: t["f.note"], sending: t["f.sending"], invalid: t["ui.err"], sent: t["f.ok"], failed: t["f.fail"] }[status];
+  const isError = status === "invalid" || status === "failed";
 
   return (
     <form id="contactForm" noValidate onSubmit={submit}>
@@ -38,23 +50,12 @@ export function ContactForm({ t }: { t: Copy }) {
         <select id="cf-topic" name="topic"><option>{t["f.o1"]}</option><option>{t["f.o2"]}</option><option>{t["f.o3"]}</option><option>{t["f.o4"]}</option></select>
       </div>
       <div><label htmlFor="cf-msg">{t["f.msg"]}</label><textarea id="cf-msg" name="message" required /></div>
-      <p className="note" id="formNote" style={error ? { color: "var(--figure)" } : undefined}>{error ? t["ui.err"] : t["f.note"]}</p>
-      <button className="btn" type="submit">{t["f.submit"]}</button>
-      <div className="result" id="result" hidden={!draft}>
-        <pre id="resultText" ref={pre}>{draft?.text}</pre>
-        <div className="acts">
-          <button
-            className="btn"
-            type="button"
-            id="copyMsg"
-            onClick={(e) => copyText(pre.current?.textContent ?? "", e.currentTarget, pre.current, { copied: t["ui.copied"], selected: t["ui.selected"] })}
-          >
-            {t["f.copy"]}
-          </button>
-          <a className="btn ghost" id="mailLink" href={draft?.mailto ?? "#"}>{t["f.open"]}</a>
-        </div>
-        <p className="note">{t["f.paste"]}</p>
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="cf-gotcha">Leave this field empty</label>
+        <input id="cf-gotcha" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" />
       </div>
+      <p className="note" id="formNote" role="status" style={isError ? { color: "var(--figure)" } : undefined}>{note}</p>
+      <button className="btn" type="submit" disabled={status === "sending"}>{t["f.submit"]}</button>
     </form>
   );
 }
