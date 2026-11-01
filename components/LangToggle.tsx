@@ -5,6 +5,7 @@ import { homePath, type Lang } from "@/lib/lang";
 export function LangToggle({ lang }: { lang: Lang }) {
   function go(next: Lang) {
     if (next === lang) return;
+    try { localStorage.setItem("mc-lang", next); } catch {}
     location.assign(homePath[next] + location.hash);
   }
 
