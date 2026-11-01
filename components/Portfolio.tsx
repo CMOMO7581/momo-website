@@ -189,6 +189,15 @@ export function Portfolio({ lang }: { lang: Lang }) {
 
           <hr />
 
+          <section id="certificates">
+            <h2 {...h("cert.h")} />
+            <ol className="entries">
+              <li><div className="when" {...h("cert1.w")} /><div>{writingTitle("bmc-cert", "cert1.t")}<p className="org" {...h("cert1.o")} /><p {...h("cert1.d")} /></div></li>
+            </ol>
+          </section>
+
+          <hr />
+
           <section id="resume">
             <h2 {...h("r.h")} />
             <p {...h("r.p")} />

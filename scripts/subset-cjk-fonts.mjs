@@ -13,7 +13,7 @@ const nonAscii = (text) => [...new Set([...text].filter((c) => c.codePointAt(0) 
 
 // Which copy keys render in which face, following app/globals.css. Body text (Noto Sans 400) gets
 // every character, so a key that ends up elsewhere still has a Chinese glyph to fall back on.
-const SERIF = /^(tagline|nav\..+|ui\.(dark|light)|(about|work|exp|wr|sk|r|c)\.h|w\d\.t|e\d\.[to]|wr\d\.[to]|sk\.(fin|code|tools|lang|hon))$/;
+const SERIF = /^(tagline|nav\..+|ui\.(dark|light)|(about|work|exp|wr|sk|r|c|cert)\.h|w\d\.t|e\d\.[to]|wr\d\.[to]|cert\d\.[to]|sk\.(fin|code|tools|lang|hon))$/;
 const SERIF_BOLD = /^about\.h$/;
 const SANS_BOLD = /^(c\.status|r\.dl|ui\.soon|f\.submit|c\.copy|ui\.copied|ui\.selected)$/;
 const boldMarkup = /<strong>([\s\S]*?)<\/strong>|<span class="fig">([\s\S]*?)<\/span>/g;
