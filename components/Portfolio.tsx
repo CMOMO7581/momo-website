@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { getCopy, type Key, type Lang } from "@/lib/content";
 import { ChartBg } from "./ChartBg";
 import { ContactForm } from "./ContactForm";
@@ -8,6 +10,13 @@ import { ThemeToggle } from "./ThemeToggle";
 const EMAIL = "cc79336@eid.utexas.edu";
 const LINKEDIN = "https://www.linkedin.com/in/momochen0517";
 
+const RESUMES = { en: "/resume/Momo-Chen-Resume-EN.pdf", zh: "/resume/Momo-Chen-Resume-ZH.pdf" };
+
+// Checked at build time: a button only becomes a download once its PDF is in public/resume/.
+function resumeReady(href: string) {
+  return existsSync(join(process.cwd(), "public", href));
+}
+
 const docIcon = (
   <svg className="picto" viewBox="0 0 40 40" aria-hidden="true"><path d="M10 4h14l8 8v24H10z" /><path d="M24 4v8h8" /><path d="M15 19h12M15 24h12M15 29h8" /></svg>
 );
@@ -16,6 +25,10 @@ export function Portfolio({ lang }: { lang: Lang }) {
   const t = getCopy(lang);
   // Copy may contain inline markup (<strong>, <span class="fig">, links), so it is rendered as HTML.
   const h = (k: Key) => ({ dangerouslySetInnerHTML: { __html: t[k] } });
+  const resumeButton = (which: keyof typeof RESUMES) =>
+    resumeReady(RESUMES[which])
+      ? <a className="btn" href={RESUMES[which]} download {...h("r.dl")} />
+      : <a className="btn" aria-disabled="true">{t["ui.soon"]}</a>;
 
   return (
     <>
@@ -170,7 +183,7 @@ export function Portfolio({ lang }: { lang: Lang }) {
                 <div>
                   <h3 lang="en">English Resume</h3>
                   <p className="meta" {...h("r.en.m")} />
-                  <a className="btn" aria-disabled="true">{t["ui.soon"]}</a>
+                  {resumeButton("en")}
                 </div>
               </div>
               <div className="resume-opt">
@@ -178,7 +191,7 @@ export function Portfolio({ lang }: { lang: Lang }) {
                 <div>
                   <h3 lang="zh-Hant">中文履歷</h3>
                   <p className="meta" {...h("r.zh.m")} />
-                  <a className="btn" aria-disabled="true">{t["ui.soon"]}</a>
+                  {resumeButton("zh")}
                 </div>
               </div>
             </div>
