@@ -1,12 +1,12 @@
 /* Layout: one quiet, left-aligned reading column on white; script signature + serif nav header; thin grey rules between sections; line pictograms beside each project. */
 :root{
-  --bg:#FFFFFF;
+  --bg:#FCFAF5;         /* a faint cream white */
   --text:#383838;
   --text-2:#6E6E6E;
-  --rule:#E3E3E3;
+  --rule:#E5E1D8;
   --icon:#2E5A7A;       /* muted navy for pictograms and link hover */
   --figure:#B4520A;     /* burnt orange, only on headline numbers */
-  --field:#FAFAFA;
+  --field:#F7F4EC;
   --script:var(--font-script), "Snell Roundhand", cursive;
   --serif:var(--font-lora), var(--font-noto-serif-tc), Georgia, serif;
   --sans:var(--font-open-sans), var(--font-noto-sans-tc), "Helvetica Neue", Arial, sans-serif;
