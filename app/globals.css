@@ -50,8 +50,8 @@ hr{border:0;border-top:1px solid var(--rule);margin:52px 0}
 .masthead{position:relative;overflow:hidden}
 .masthead .head-inner{position:relative;z-index:1;padding-block:48px 80px}
 .masthead{--pat:color-mix(in srgb,var(--text) 11%,transparent);--pat-soft:color-mix(in srgb,var(--text) 6%,transparent)}
-.chart-bg{position:absolute;inset:auto auto 0 0;width:200%;height:84px;z-index:0;pointer-events:none;display:block;animation:chart-pan 90s linear infinite;will-change:transform}
-@keyframes chart-pan{to{transform:translateX(-50%)}}
+.chart-bg{position:absolute;inset:auto auto 0 0;width:3600px;height:84px;z-index:0;pointer-events:none;display:block;animation:chart-pan 90s linear infinite;will-change:transform}
+@keyframes chart-pan{to{transform:translateX(-360px)}}
 @media (prefers-reduced-motion: reduce){.chart-bg{animation:none}}
 /* On phones the nav wraps to two rows, so the chart is kept low enough to sit below the language switch.
    The header is also tighter here so the first screen shows it together with the photo. */
