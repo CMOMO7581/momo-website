@@ -53,7 +53,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:52px 0}
 @keyframes chart-pan{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.chart-bg{animation:none}}
 /* On phones the nav wraps to two rows, so the chart is kept low enough to sit below the language switch. */
-@media (max-width:620px){.masthead .head-inner{padding-bottom:64px}.chart-bg{height:56px}}
+@media (max-width:620px){.masthead .head-inner{padding-bottom:88px}.chart-bg{height:100px}}
 .chart-bg .ln{fill:none;stroke:color-mix(in srgb,var(--icon) 26%,transparent);stroke-width:1.25}
 .chart-bg .ar{fill:color-mix(in srgb,var(--icon) 5%,transparent)}
 .chart-bg .vol{fill:color-mix(in srgb,var(--text) 7%,transparent)}
