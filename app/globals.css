@@ -53,8 +53,9 @@ hr{border:0;border-top:1px solid var(--rule);margin:52px 0}
 .chart-bg{position:absolute;inset:auto auto 0 0;width:200%;height:42%;z-index:0;pointer-events:none;display:block;animation:chart-pan 90s linear infinite;will-change:transform}
 @keyframes chart-pan{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.chart-bg{animation:none}}
-/* On phones the nav wraps to two rows, so the chart is kept low enough to sit below the language switch. */
-@media (max-width:620px){.masthead .head-inner{padding-bottom:88px}.chart-bg{height:100px}}
+/* On phones the nav wraps to two rows, so the chart is kept low enough to sit below the language switch.
+   The header is also tighter here so the first screen shows it together with the photo. */
+@media (max-width:620px){.masthead .head-inner{padding-block:28px 80px}nav ul{margin-top:8px}.chart-bg{height:100px}.masthead + .page{padding-top:20px}}
 .chart-bg .ln{fill:none;stroke:color-mix(in srgb,var(--icon) 26%,transparent);stroke-width:1.25}
 .chart-bg .ar{fill:color-mix(in srgb,var(--icon) 5%,transparent)}
 .chart-bg .vol{fill:color-mix(in srgb,var(--text) 7%,transparent)}
@@ -85,7 +86,7 @@ figcaption{font-style:italic;font-size:12px;line-height:1.5;color:var(--text-2);
 .facts span:last-child{display:block}
 .facts span:last-child::before{content:none}
 /* On phones the photo comes first, centered under the heading. */
-@media (max-width:620px){.intro-grid{grid-template-columns:minmax(0,1fr);gap:24px}.intro figure{order:-1;width:240px;max-width:100%;margin:0 auto;text-align:center}}
+@media (max-width:620px){.intro h1{margin-bottom:16px}.intro-grid{grid-template-columns:minmax(0,1fr);gap:16px}.intro figure{order:-1;width:240px;max-width:100%;margin:0 auto;text-align:center}}
 
 /* On phones the denser sections are scaled down slightly and inset, leaving wider margins. */
 @media (max-width:620px){#work,#experience,#writing,#skills,#certificates{zoom:.94;padding-inline:10px}}
